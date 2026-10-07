@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Bir gapim bor...</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050509;
+    color:white;
+}
+
+body{
+    position:relative;
+}
+
+.bg{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 20%,#29163d 0%,transparent 35%),
+        radial-gradient(circle at 10% 90%,#101e42 0%,transparent 35%),
+        #050509;
+}
+
+.orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.3;
+    animation:orb 10s ease-in-out infinite alternate;
+}
+
+.orb1{
+    width:320px;
+    height:320px;
+    background:#963fff;
+    left:-120px;
+    top:-100px;
+}
+
+.orb2{
+    width:350px;
+    height:350px;
+    background:#315cff;
+    right:-150px;
+    bottom:-120px;
+    animation-delay:2s;
+}
+
+.orb3{
+    width:250px;
+    height:250px;
+    background:#ff4c9a;
+    left:40%;
+    top:40%;
+    animation-delay:4s;
+}
+
+@keyframes orb{
+    to{
+        transform:translate(50px,-35px) scale(1.2);
+    }
+}
+
+.stars{
+    position:absolute;
+    inset:0;
+    opacity:.13;
+    background-image:
+    radial-gradient(circle,#fff 1px,transparent 1px);
+    background-size:70px 70px;
+    animation:stars 20s linear infinite;
+}
+
+@keyframes stars{
+    to{transform:translateY(70px)}
+}
+
+/* SAHNALAR */
+
+.scene{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+    opacity:0;
+    visibility:hidden;
+    transform:scale(.97);
+    transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.16,1,.3,1);
+    z-index:5;
+}
+
+.scene.active{
+    opacity:1;
+    visibility:visible;
+    transform:scale(1);
+}
+
+.center{
+    width:min(850px,100%);
+    text-align:center;
+}
+
+.small{
+    color:#c5b1ed;
+    font-size:17px;
+    letter-spacing:.8px;
+    margin-bottom:22px;
+}
+
+h1{
+    font-size:clamp(44px,8vw,92px);
+    line-height:1.05;
+    font-weight:800;
+}
+
+.gradient{
+    background:linear-gradient(
+        90deg,
+        #fff,
+        #d6baff,
+        #8bc8ff,
+        #fff
+    );
+    background-size:300%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradient 5s linear infinite;
+}
+
+@keyframes gradient{
+    to{background-position:300%}
+}
+
+.text{
+    max-width:650px;
+    margin:25px auto 0;
+    color:#aaa7b7;
+    font-size:18px;
+    line-height:1.75;
+}
+
+.btn{
+    border:1px solid rgba(255,255,255,.17);
+    background:rgba(255,255,255,.07);
+    color:white;
+    padding:16px 30px;
+    border-radius:18px;
+    font-size:16px;
+    cursor:pointer;
+    backdrop-filter:blur(20px);
+    transition:.3s;
+    box-shadow:0 10px 40px rgba(0,0,0,.25);
+}
+
+.btn:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.13);
+    box-shadow:0 15px 50px rgba(145,90,255,.3);
+}
+
+.btn:active{
+    transform:scale(.96);
+}
+
+/* 1 */
+
+.heart{
+    font-size:80px;
+    margin-bottom:20px;
+    animation:beat 1.5s infinite;
+}
+
+@keyframes beat{
+    0%,100%{transform:scale(1)}
+    15%{transform:scale(1.2)}
+    30%{transform:scale(1)}
+    45%{transform:scale(1.1)}
+}
+
+.hint{
+    margin-top:38px;
+    color:#777285;
+    font-size:14px;
+    animation:hint 2s infinite;
+}
+
+@keyframes hint{
+    50%{opacity:.3}
+}
+
+/* STORY */
+
+.story{
+    min-height:400px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.story-element{
+    opacity:0;
+    transform:translateY(35px) scale(.95);
+    filter:blur(12px);
+    transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.16,1,.3,1),
+        filter .9s ease;
+}
+
+.story-element.show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+}
+
+.story-element.hide{
+    opacity:0;
+    transform:translateY(-30px) scale(1.04);
+    filter:blur(12px);
+}
+
+.story-title{
+    font-size:clamp(43px,8vw,88px);
+    font-weight:800;
+}
+
+.story-text{
+    max-width:620px;
+    color:#aaa7b7;
+    font-size:18px;
+    line-height:1.7;
+    margin-top:25px;
+}
+
+.story-heart{
+    font-size:60px;
+    margin-top:25px;
+}
+
+/* DATE */
+
+.calendar{
+    font-size:65px;
+    margin-bottom:20px;
+}
+
+.date-title{
+    font-size:clamp(42px,8vw,85px);
+    font-weight:800;
+}
+
+/* PICKER */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(18px);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    opacity:0;
+    visibility:hidden;
+    transition:.4s;
+}
+
+.modal.open{
+    opacity:1;
+    visibility:visible;
+}
+
+.picker{
+    width:min(520px,100%);
+    padding:25px 20px 30px;
+    border-radius:32px 32px 0 0;
+    background:rgba(25,24,32,.98);
+    border:1px solid rgba(255,255,255,.12);
+    transform:translateY(100%);
+    transition:.6s cubic-bezier(.16,1,.3,1);
+}
+
+.modal.open .picker{
+    transform:translateY(0);
+}
+
+.picker h2{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:24px;
+}
+
+.label{
+    text-align:center;
+    color:#85808f;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.wheels{
+    display:grid;
+    grid-template-columns:1fr 1.3fr;
+    gap:10px;
+}
+
+.time{
+    margin-top:22px;
+}
+
+.wheel{
+    height:180px;
+    overflow-y:auto;
+    scroll-snap-type:y mandatory;
+    scrollbar-width:none;
+    background:rgba(255,255,255,.045);
+    border-radius:18px;
+    position:relative;
+}
+
+.wheel::-webkit-scrollbar{
+    display:none;
+}
+
+.wheel::after{
+    content:"";
+    position:absolute;
+    left:8px;
+    right:8px;
+    top:66px;
+    height:48px;
+    border-top:1px solid rgba(255,255,255,.14);
+    border-bottom:1px solid rgba(255,255,255,.14);
+    pointer-events:none;
+}
+
+.wheel-item{
+    height:48px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    scroll-snap-align:center;
+    color:#777;
+    font-size:18px;
+    position:relative;
+    z-index:2;
+}
+
+.wheel-space{
+    height:66px;
+    flex:none;
+}
+
+.wheel-item.selected{
+    color:#fff;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.picker .btn{
+    width:100%;
+    margin-top:25px;
+}
+
+/* CONFIRM */
+
+.confirm-heart{
+    font-size:65px;
+    margin-bottom:20px;
+}
+
+.selected-date{
+    font-size:clamp(35px,7vw,70px);
+    font-weight:800;
+    margin:25px 0;
+}
+
+/* ROCKET */
+
+.rocket{
+    position:absolute;
+    left:50%;
+    top:-180px;
+    transform:translateX(-50%);
+    font-size:95px;
+    animation:rocket 10s cubic-bezier(.15,.75,.25,1) forwards;
+}
+
+@keyframes rocket{
+    0%{
+        top:-180px;
+        transform:translateX(-50%) rotate(0deg) scale(1);
+    }
+
+    20%{
+        top:5%;
+        transform:translateX(-50%) rotate(-7deg);
+    }
+
+    55%{
+        top:42%;
+        transform:translateX(-50%) rotate(8deg);
+    }
+
+    80%{
+        top:70%;
+        transform:translateX(-50%) rotate(-5deg) scale(.75);
+    }
+
+    100%{
+        top:115%;
+        transform:translateX(-50%) rotate(15deg) scale(.45);
+        opacity:0;
+    }
+}
+
+.rocket-fire{
+    position:absolute;
+    width:25px;
+    height:90px;
+    left:50%;
+    top:75px;
+    transform:translateX(-50%);
+    background:linear-gradient(#fff,#ffb000,transparent);
+    filter:blur(5px);
+}
+
+/* ENVELOPE */
+
+.envelope{
+    width:270px;
+    height:175px;
+    margin:40px auto;
+    position:relative;
+    cursor:pointer;
+    filter:drop-shadow(0 20px 35px rgba(130,80,255,.3));
+    transition:.3s;
+}
+
+.envelope:hover{
+    transform:translateY(-7px);
+}
+
+.env-body{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,#f4f0ff,#bca3e8);
+    border-radius:15px;
+}
+
+.env-flap{
+    position:absolute;
+    top:0;
+    left:0;
+    width:0;
+    height:0;
+    border-left:135px solid transparent;
+    border-right:135px solid transparent;
+    border-top:95px solid #ddd1f5;
+    transform-origin:top;
+    transition:1s cubic-bezier(.16,1,.3,1);
+    z-index:3;
+}
+
+.envelope.opened .env-flap{
+    transform:rotateX(180deg);
+}
+
+.env-heart{
+    position:absolute;
+    z-index:5;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-size:48px;
+}
+
+/* LETTER */
+
+.letter-modal{
+    position:fixed;
+    inset:0;
+    z-index:150;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.84);
+    backdrop-filter:blur(20px);
+    opacity:0;
+    visibility:hidden;
+    transition:.5s;
+}
+
+.letter-modal.open{
+    opacity:1;
+    visibility:visible;
+}
+
+.letter{
+    width:min(650px,100%);
+    max-height:88vh;
+    overflow:auto;
+    padding:35px;
+    border-radius:28px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.11),
+            rgba(255,255,255,.04)
+        );
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 30px 100px rgba(0,0,0,.6);
+    transform:translateY(50px) scale(.9);
+    transition:.7s cubic-bezier(.16,1,.3,1);
+}
+
+.letter-modal.open .letter{
+    transform:translateY(0) scale(1);
+}
+
+.letter h2{
+    text-align:center;
+    font-size:38px;
+    margin-bottom:25px;
+}
+
+.letter p{
+    color:#d2cedb;
+    font-size:17px;
+    line-height:1.9;
+    margin-bottom:18px;
+}
+
+.letter .btn{
+    display:block;
+    margin:30px auto 0;
+}
+
+/* EFFECTS */
+
+.effect{
+    position:fixed;
+    pointer-events:none;
+    z-index:300;
+}
+
+.firework{
+    position:fixed;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    animation:explode 1.4s ease-out forwards;
+}
+
+@keyframes explode{
+    from{
+        transform:translate(0,0) scale(1);
+        opacity:1;
+    }
+    to{
+        transform:
+            translate(var(--x),var(--y))
+            scale(.15);
+        opacity:0;
+    }
+}
+
+.heart-fly{
+    font-size:25px;
+    animation:heartFly 4s ease-out forwards;
+}
+
+@keyframes heartFly{
+    from{
+        transform:translate(0,0) scale(.5);
+        opacity:1;
+    }
+    to{
+        transform:
+            translate(var(--x),var(--y))
+            scale(1.5)
+            rotate(360deg);
+        opacity:0;
+    }
+}
+
+.butterfly{
+    font-size:30px;
+    animation:butterfly 5s ease-out forwards;
+}
+
+@keyframes butterfly{
+    0%{
+        opacity:0;
+        transform:translate(0,100px);
+    }
+    15%{opacity:1}
+    100%{
+        opacity:0;
+        transform:
+            translate(var(--x),-100vh)
+            rotate(var(--r));
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .scene{
+        padding:18px;
+    }
+
+    .text{
+        font-size:16px;
+    }
+
+    .letter{
+        padding:25px 20px;
+    }
+
+    .letter p{
+        font-size:15px;
+    }
+
+    .envelope{
+        transform:scale(.85);
+    }
+
+    .envelope:hover{
+        transform:scale(.85);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+    <div class="stars"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+</div>
+
+
+<!-- 1 -->
+
+<section class="scene active" id="s1">
+    <div class="center">
+
+        <div class="heart">♡</div>
+
+        <div class="small">
+            Avval bir narsani so‘ramoqchiman...
+        </div>
+
+        <h1 class="gradient">
+            Qalaysan?
+        </h1>
+
+        <p class="text">
+            Bugun senga oddiygina bir gap aytmoqchiman.
+        </p>
+
+        <div class="hint">
+            Biroz kut...
+        </div>
+
+    </div>
+</section>
+
+
+<!-- 2 -->
+
+<section class="scene" id="s2">
+    <div class="center story">
+
+        <div class="story-element" id="stSmall"></div>
+
+        <div class="story-element story-title gradient" id="stTitle"></div>
+
+        <div class="story-element story-text" id="stText"></div>
+
+        <div class="story-element story-heart" id="stHeart"></div>
+
+    </div>
+</section>
+
+
+<!-- 3 -->
+
+<section class="scene" id="s3">
+
+    <div class="center">
+
+        <div class="calendar">♡</div>
+
+        <div class="small">
+            Endi esa...
+        </div>
+
+        <div class="date-title gradient">
+            Qachon ko‘rishamiz?
+        </div>
+
+        <p class="text">
+            Bir kun va bir vaqt tanla.
+        </p>
+
+        <button class="btn" id="openPicker">
+            Sana va vaqtni tanlash
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- PICKER -->
+
+<div class="modal" id="pickerModal">
+
+    <div class="picker">
+
+        <h2>Uchrashuv vaqti</h2>
+
+        <div class="label">
+            KUN VA OY
+        </div>
+
+        <div class="wheels">
+
+            <div class="wheel" id="dayWheel"></div>
+
+            <div class="wheel" id="monthWheel"></div>
+
+        </div>
+
+        <div class="label time">
+            SOAT VA DAQIQA
+        </div>
+
+        <div class="wheels">
+
+            <div class="wheel" id="hourWheel"></div>
+
+            <div class="wheel" id="minuteWheel"></div>
+
+        </div>
+
+        <button class="btn" id="doneDate">
+            Shu vaqtni tanlash 🤍
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- 4 -->
+
+<section class="scene" id="s4">
+
+    <div class="center">
+
+        <div class="confirm-heart">
+            ♡
+        </div>
+
+        <div class="small">
+            Demak, kelishdik...
+        </div>
+
+        <div class="selected-date gradient" id="selectedDate">
+            —
+        </div>
+
+        <p class="text">
+            Endi bu kunni kutamiz.
+        </p>
+
+        <button class="btn" id="agree">
+            Kelishdik 🤍
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- 5 -->
+
+<section class="scene" id="s5">
+
+    <div class="rocket">
+        🚀
+        <div class="rocket-fire"></div>
+    </div>
+
+    <div class="center">
+
+        <div class="small">
+            Bir daqiqa...
+        </div>
+
+        <h1 class="gradient">
+            Senga bir narsa keldi.
+        </h1>
+
+    </div>
+
+</section>
+
+
+<!-- 6 -->
+
+<section class="scene" id="s6">
+
+    <div class="center">
+
+        <div class="small">
+            📩 Yangi xabar
+        </div>
+
+        <h1>
+            Senga xat keldi.
+        </h1>
+
+        <p class="text">
+            Ichida aytilishi kerak bo‘lgan bir nechta gap bor.
+        </p>
+
+        <div class="envelope" id="envelope">
+
+            <div class="env-body"></div>
+
+            <div class="env-flap"></div>
+
+            <div class="env-heart">
+                ♡
+            </div>
+
+        </div>
+
+        <div class="hint">
+            Xatni ochish uchun bosing
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LETTER -->
+
+<div class="letter-modal" id="letterModal">
+
+    <div class="letter">
+
+        <h2 class="gradient">
+            Senga...
+        </h2>
+
+        <p>
+            Ba’zan inson hayotida shunday odam paydo bo‘ladiki,
+            u bilan oddiy suhbatning o‘zi ham kunni boshqacha qiladi.
+        </p>
+
+        <p>
+            Men seni o‘ylaganimda katta va chiroyli so‘zlarni
+            qidirishga harakat qilmayman. Chunki ba’zi hislarni
+            oddiy so‘zlar bilan aytishning o‘zi yetarli.
+        </p>
+
+        <p>
+            Sen bilan gaplashish, kulish, uzoq suhbatlashish
+            va oddiy lahzalarni bo‘lishish men uchun alohida.
+        </p>
+
+        <p>
+            Balki hamma narsani mukammal ayta olmasman.
+            Lekin bitta narsani aniq bilaman:
+        </p>
+
+        <p style="text-align:center;font-size:25px;color:white;">
+            Men seni sevaman. 🤍
+        </p>
+
+        <p>
+            Bu gapni sendan nimanidir majburlab olish uchun
+            aytmayapman. Shunchaki qalbimdagi rost gapni
+            bilishingni xohladim.
+        </p>
+
+        <p>
+            Agar sen ham shu tuyg‘uni his qilsang,
+            unda balki bu hikoyaning keyingi sahifasini
+            birga yozarmiz.
+        </p>
+
+        <button class="btn" id="letterNext">
+            Davom etish 🤍
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- 7 -->
+
+<section class="scene" id="s7">
+
+    <div class="center">
+
+        <div class="small">
+            Endi javob sendan...
+        </div>
+
+        <h1 class="gradient">
+            Rozimisan?
+        </h1>
+
+        <p class="text">
+            Faqat qalbingdagi javob.
+        </p>
+
+        <button class="btn" id="yesBtn" style="margin-top:35px">
+            Ha, roziman 🤍
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL -->
+
+<section class="scene" id="s8">
+
+    <div class="center">
+
+        <div class="heart">
+            🤍
+        </div>
+
+        <h1 class="gradient">
+            Unda boshladik...
+        </h1>
+
+        <p class="text">
+            Ba’zi hikoyalar birgina “ha” bilan boshlanadi.
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* ================= SAHNALAR ================= */
+
+const scenes=[
+    s1,s2,s3,s4,s5,s6,s7,s8
+];
+
+let current=0;
+
+function go(index){
+
+    if(index<0 || index>=scenes.length) return;
+
+    scenes[current].classList.remove("active");
+
+    setTimeout(()=>{
+
+        current=index;
+
+        scenes[current].classList.add("active");
+
+        if(index===1){
+            startStory();
+        }
+
+        if(index===4){
+            startRocket();
+        }
+
+    },150);
+}
+
+
+/* ================= INTRO ================= */
+
+setTimeout(()=>{
+    go(1);
+},3500);
+
+
+/* ================= STORY ================= */
+
+const lines=[
+    {
+        small:"Avval bir narsani aytmoqchiman...",
+        title:"Anchadan beri...",
+        text:"Ichimda aytilmay yurgan bir gap bor.",
+        heart:"♡"
+    },
+    {
+        small:"Balki bugun aytish vaqti kelgandir.",
+        title:"Men seni sevaman.",
+        text:"Oddiy uchta so‘z. Lekin men uchun juda katta ma’noga ega.",
+        heart:"♥"
+    },
+    {
+        small:"Va endi eng chiroyli savol...",
+        title:"Qachon ko‘rishamiz?",
+        text:"Balki shu savolga birga javob topisharmiz.",
+        heart:"♡"
+    }
+];
+
+let storyStarted=false;
+
+function showLine(i){
+
+    const a=document.getElementById("stSmall");
+    const b=document.getElementById("stTitle");
+    const c=document.getElementById("stText");
+    const d=document.getElementById("stHeart");
+
+    [a,b,c,d].forEach(x=>{
+        x.classList.remove("show");
+        x.classList.add("hide");
+    });
+
+    setTimeout(()=>{
+
+        a.textContent=lines[i].small;
+        b.textContent=lines[i].title;
+        c.textContent=lines[i].text;
+        d.textContent=lines[i].heart;
+
+        [a,b,c,d].forEach(x=>{
+            x.classList.remove("hide");
+        });
+
+        requestAnimationFrame(()=>{
+            [a,b,c,d].forEach(x=>{
+                x.classList.add("show");
+            });
+        });
+
+    },700);
+}
+
+function startStory(){
+
+    if(storyStarted) return;
+
+    storyStarted=true;
+
+    let i=0;
+
+    showLine(i);
+
+    const timer=setInterval(()=>{
+
+        i++;
+
+        if(i>=lines.length){
+
+            clearInterval(timer);
+
+            setTimeout(()=>{
+                go(2);
+            },1000);
+
+            return;
+        }
+
+        showLine(i);
+
+    },3800);
+}
+
+
+/* ================= PICKER ================= */
+
+const picker=document.getElementById("pickerModal");
+
+const dayWheel=document.getElementById("dayWheel");
+const monthWheel=document.getElementById("monthWheel");
+const hourWheel=document.getElementById("hourWheel");
+const minuteWheel=document.getElementById("minuteWheel");
+
+const months=[
+    "Yanvar","Fevral","Mart","Aprel",
+    "May","Iyun","Iyul","Avgust",
+    "Sentabr","Oktabr","Noyabr","Dekabr"
+];
+
+function createWheel(element,values){
+
+    element.innerHTML="";
+
+    const top=document.createElement("div");
+    top.className="wheel-space";
+    element.appendChild(top);
+
+    values.forEach(value=>{
+
+        const item=document.createElement("div");
+
+        item.className="wheel-item";
+        item.textContent=value;
+        item.dataset.value=value;
+
+        element.appendChild(item);
+
+    });
+
+    const bottom=document.createElement("div");
+    bottom.className="wheel-space";
+    element.appendChild(bottom);
+}
+
+createWheel(
+    dayWheel,
+    Array.from({length:31},(_,i)=>i+1)
+);
+
+createWheel(
+    monthWheel,
+    months
+);
+
+createWheel(
+    hourWheel,
+    Array.from({length:24},(_,i)=>
+        String(i).padStart(2,"0")
+    )
+);
+
+createWheel(
+    minuteWheel,
+    Array.from({length:60},(_,i)=>
+        String(i).padStart(2,"0")
+    )
+);
+
+
+/* DEFAULT */
+
+function setWheel(wheel,index){
+
+    wheel.scrollTop=(index+1)*48;
+
+    updateWheel(wheel);
+}
+
+setWheel(dayWheel,0);
+setWheel(monthWheel,0);
+setWheel(hourWheel,12);
+setWheel(minuteWheel,0);
+
+
+function updateWheel(wheel){
+
+    const center=
+        wheel.scrollTop+
+        wheel.clientHeight/2;
+
+    let closest=null;
+    let distance=999999;
+
+    wheel.querySelectorAll(".wheel-item").forEach(item=>{
+
+        const itemCenter=
+            item.offsetTop+
+            item.offsetHeight/2;
+
+        const d=Math.abs(center-itemCenter);
+
+        item.classList.remove("selected");
+
+        if(d<distance){
+
+            distance=d;
+            closest=item;
+
+        }
+
+    });
+
+    if(closest){
+        closest.classList.add("selected");
+    }
+}
+
+
+[
+    dayWheel,
+    monthWheel,
+    hourWheel,
+    minuteWheel
+].forEach(wheel=>{
+
+    wheel.addEventListener("scroll",()=>{
+        updateWheel(wheel);
+    });
+
+});
+
+
+document.getElementById("openPicker").onclick=()=>{
+
+    picker.classList.add("open");
+
+};
+
+
+function selectedValue(wheel){
+
+    const selected=wheel.querySelector(".selected");
+
+    return selected.dataset.value;
+}
+
+
+document.getElementById("doneDate").onclick=()=>{
+
+    const day=selectedValue(dayWheel);
+    const month=selectedValue(monthWheel);
+    const hour=selectedValue(hourWheel);
+    const minute=selectedValue(minuteWheel);
+
+    document.getElementById("selectedDate").textContent=
+        `${day} ${month} • ${hour}:${minute}`;
+
+    picker.classList.remove("open");
+
+    setTimeout(()=>{
+        go(3);
+    },450);
+
+};
+
+
+/* ================= CONFIRM ================= */
+
+document.getElementById("agree").onclick=()=>{
+
+    go(4);
+
+};
+
+
+/* ================= ROCKET ================= */
+
+let rocketDone=false;
+
+function startRocket(){
+
+    if(rocketDone) return;
+
+    rocketDone=true;
+
+    /* AYNAN 10 SEKUND */
+
+    setTimeout(()=>{
+
+        go(5);
+
+    },10000);
+
+}
+
+
+/* ================= ENVELOPE ================= */
+
+const envelope=document.getElementById("envelope");
+const letterModal=document.getElementById("letterModal");
+
+envelope.onclick=()=>{
+
+    if(envelope.classList.contains("opened")) return;
+
+    envelope.classList.add("opened");
+
+    setTimeout(()=>{
+
+        letterModal.classList.add("open");
+
+    },900);
+
+};
+
+
+/* ================= LETTER ================= */
+
+document.getElementById("letterNext").onclick=()=>{
+
+    letterModal.classList.remove("open");
+
+    setTimeout(()=>{
+
+        go(6);
+
+    },500);
+
+};
+
+
+/* ================= YES ================= */
+
+document.getElementById("yesBtn").onclick=()=>{
+
+    go(7);
+
+    setTimeout(createFireworks,500);
+    setTimeout(createHearts,800);
+    setTimeout(createButterflies,1100);
+
+};
+
+
+/* ================= FIREWORKS ================= */
+
+function createFireworks(){
+
+    for(let burst=0;burst<8;burst++){
+
+        setTimeout(()=>{
+
+            const x=Math.random()*innerWidth;
+            const y=Math.random()*innerHeight*.65;
+
+            for(let i=0;i<40;i++){
+
+                const p=document.createElement("div");
+
+                p.className="firework";
+
+                p.style.left=x+"px";
+                p.style.top=y+"px";
+
+                const angle=
+                    Math.PI*2*i/40;
+
+                const distance=
+                    80+Math.random()*190;
+
+                p.style.setProperty(
+                    "--x",
+                    Math.cos(angle)*distance+"px"
+                );
+
+                p.style.setProperty(
+                    "--y",
+                    Math.sin(angle)*distance+"px"
+                );
+
+                p.style.background=
+                    `hsl(${Math.random()*360},90%,75%)`;
+
+                document.body.appendChild(p);
+
+                setTimeout(()=>{
+                    p.remove();
+                },1500);
+
+            }
+
+        },burst*450);
+
+    }
+
+}
+
+
+/* ================= HEARTS ================= */
+
+function createHearts(){
+
+    for(let i=0;i<50;i++){
+
+        setTimeout(()=>{
+
+            const h=document.createElement("div");
+
+            h.className="effect heart-fly";
+            h.textContent="🤍";
+
+            h.style.left=
+                Math.random()*100+"vw";
+
+            h.style.top=
+                65+Math.random()*30+"vh";
+
+            h.style.setProperty(
+                "--x",
+                (Math.random()-.5)*350+"px"
+            );
+
+            h.style.setProperty(
+                "--y",
+                -(100+Math.random()*500)+"px"
+            );
+
+            document.body.appendChild(h);
+
+            setTimeout(()=>{
+                h.remove();
+            },4000);
+
+        },i*70);
+
+    }
+
+}
+
+
+/* ================= BUTTERFLIES ================= */
+
+function createButterflies(){
+
+    for(let i=0;i<25;i++){
+
+        setTimeout(()=>{
+
+            const b=document.createElement("div");
+
+            b.className="effect butterfly";
+            b.textContent="🦋";
+
+            b.style.left=
+                Math.random()*100+"vw";
+
+            b.style.bottom="-40px";
+
+            b.style.setProperty(
+                "--x",
+                (Math.random()-.5)*450+"px"
+            );
+
+            b.style.setProperty(
+                "--r",
+                (Math.random()-.5)*100+"deg"
+            );
+
+            document.body.appendChild(b);
+
+            setTimeout(()=>{
+                b.remove();
+            },5000);
+
+        },i*150);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
